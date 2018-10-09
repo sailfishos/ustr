@@ -105,7 +105,7 @@ Requires: %{name}-debug = %{version}-%{release}
  Static library for the debug build of the Ustr string library.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-%{version}/upstream
 %patch0 -p1
 
 %build
