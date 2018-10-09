@@ -54,6 +54,7 @@ Group: System Environment/Libraries
 License: MIT or LGPLv2+ or BSD
 URL: http://www.and.org/ustr/
 Source: %{name}-%{version}.tar.gz
+Patch0: c99-inline.patch
 # BuildRequires: make gcc sed
 
 %description
@@ -105,6 +106,7 @@ Requires: %{name}-debug = %{version}-%{release}
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch0 -p1
 
 %build
 make %{?_smp_mflags} all-shared CFLAGS="${CFLAGS:-%optflags}  -fgnu89-inline" %{policy_cflags}
