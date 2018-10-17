@@ -39,15 +39,8 @@
 
 %define policy_cflags %{policy_cflags_hide}  %{policy_cflags_broken}
 
-%if %{multilib_inst}
-%define ustr_make_install install-multilib-linux
-%else
-%define ustr_make_install install
-%endif
-
-
 Name: ustr
-Version: 0
+Version: 1.0.4
 Release: 1
 Summary: String library, very low memory overhead, simple to import
 Group: System Environment/Libraries
@@ -55,7 +48,6 @@ License: MIT or LGPLv2+ or BSD
 URL: http://www.and.org/ustr/
 Source: %{name}-%{version}.tar.gz
 Patch0: c99-inline.patch
-# BuildRequires: make gcc sed
 
 %description
  Micro string library, very low overhead from plain strdup() (Ave. 44% for
@@ -118,7 +110,7 @@ make %{?_smp_mflags} check CFLAGS="${CFLAGS:-%optflags}  -fgnu89-inline" %{polic
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make $@ %{ustr_make_install} prefix=%{_prefix} \
+make $@ install prefix=%{_prefix} \
                 bindir=%{_bindir}         mandir=%{_mandir} \
                 datadir=%{_datadir}       libdir=%{_libdir} \
                 includedir=%{_includedir} libexecdir=%{_libexecdir} \
@@ -143,9 +135,6 @@ make $@ %{ustr_make_install} prefix=%{_prefix} \
 %defattr(-,root,root,-)
 %{_datadir}/ustr-*
 %{_bindir}/ustr-import
-%if %{multilib_inst}
-%{_libexecdir}/ustr-*
-%endif
 %{_includedir}/ustr.h
 %{_includedir}/ustr-*.h
 %exclude %{_includedir}/ustr*debug*.h
